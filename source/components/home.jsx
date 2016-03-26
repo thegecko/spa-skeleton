@@ -13,4 +13,4 @@ var HomeComponent = React.createClass({
     }
 });
 
-export default HomeComponent
+export default HomeComponent;
