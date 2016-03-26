@@ -69,4 +69,4 @@ Use the ```build``` ```gulp``` task to lint the code, run tests and create a pro
 
 ### Staging
 
-Successful ```CircleCI``` builds are auomatically deployed to [gh-pages](https://thegecko.github.io/spa-skeleton/)
+Successful ```CircleCI``` builds are automatically deployed to [gh-pages](https://thegecko.github.io/spa-skeleton/)
