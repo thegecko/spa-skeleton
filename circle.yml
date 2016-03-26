@@ -1,0 +1,24 @@
+general:
+  branches:
+    ignore:
+      - gh-pages
+  artifacts:
+    - results
+
+machine:
+  node:
+    version: 4.0.0
+
+test:
+  override:
+    - gulp build
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - git config --global user.name "circle"
+      - git config --global user.email "circle@circle.com"
+      - git add -f dist
+      - git commit -m "build $CIRCLE_BUILD_NUM"
+      - git push -f origin master:gh-pages

@@ -1,0 +1,121 @@
+<html>
+<head>
+	<title>SPA Skeleton Builds</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>SPA Skeleton Builds</h1>
+
+<div class="container">
+	<div id="branches" class="branch">
+		<h2>Branch builds</h2>
+		<ul></ul>
+	</div>
+	<div id="master" class="branch">
+		<h2>Master builds</h2>
+		<ul></ul>
+	</div>
+</div>
+
+<script>
+	var project = "spa-skeleton";
+	var token = "";
+</script>
+
+<script type="text/template" id="template">
+
+	<% _.each(builds, function(build) { %>
+		<li class="item">
+			<% if (build.has_artifacts) { %>
+				<a title="Test results" href="https://circle-artifacts.com/gh/thegecko/<%- project %>/<%- build.build_num%>/artifacts/0/home/ubuntu/<%- project %>/results/index.html">
+			<% } %>
+
+			<div class="build <%- (build.failed || !build.has_artifacts) ? 'fail' : 'pass' %>">
+				<div class="number"><%- ("000" + build.build_num).slice(-3) %></div>
+				<div class="details">
+					<div class="title"><%- (build.branch === "master") ? status(build) : build.branch %></div>
+					<div class="details"><%- (build.branch === "master") ? build.subject : status(build) + ": " + build.subject %></div>
+				</div>
+				<div class="stats">
+					<div class="start"><%- formatDate(build.author_date) %></div>
+					<div class="duration"><%- (build.lifecycle === "running") ? "running" : "duration: " + Math.round(build.build_time_millis / 1000 / 60) + "mins" %></div>
+					<div class="name"><%- build.author_name %></div>
+				</div>
+			</div>
+
+			<% if (build.has_artifacts) { %>
+				</a>
+			<% } %>
+
+			<div class="links">
+				<a title="CircleCI build" href="<%- build.build_url %>">
+					<img class="logo circleci" src="images/circleci.svg" /></a>
+				<a title="Github commit" href="<%- build.vcs_url %>/commit/<%- build.vcs_revision %>">
+					<img class="logo github" src="images/github.svg" /></a>
+			</div>
+		</li>
+    <% }); %>
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script>
+	$.ajaxSetup({
+  		headers: { "Accept": "application/json" }
+	});
+
+	_.templateSettings.variable = "builds";
+	var template = _.template($("#template").html());
+
+	function getCircle(callback) {
+		url = "https://circleci.com/api/v1/project/thegecko/" + project + "?circle-token=" + token;
+		$.get(url, callback)
+	}
+
+	function formatDate(dateString) {
+	    var date = new Date(dateString);
+        var time = [
+			("00" + date.getHours()).slice(-2),
+			("00" + date.getMinutes()).slice(-2),
+        ]; 
+        var day = [
+			("00" + date.getDate()).slice(-2),
+			("00" + date.getMonth() + 1).slice(-2),
+			("00" + date.getYear()).slice(-2),
+        ]; 
+	    return time.join(":") + " " + day.join('/');
+	}
+
+	function status(build) {
+		if (build.outcome) {
+			return (build.has_artifacts) ? build.outcome : "no tests";
+		}
+		return build.lifecycle;
+	}
+
+	getCircle(function(builds) {
+		builds = builds.filter(function(build) {
+			return (build.dont_build === null);
+		});
+
+		var masterBuilds = builds.filter(function(build) {
+			return (build.branch === "master");
+		});
+
+		var branchBuilds = builds.filter(function(build) {
+			return (build.branch !== "master");
+		});
+
+		$("#master>ul").html(template(masterBuilds));
+		$("#branches>ul").html(template(branchBuilds));
+	});
+
+	setTimeout(function() {
+		document.location.reload();
+	}, 1000 * 60 * 5);
+
+</script>
+
+</body>
