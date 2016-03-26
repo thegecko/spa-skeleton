@@ -1,7 +1,9 @@
 import React from 'react';
+import backboneReact from 'backbone-react-component';
 
-class Menu extends React.Component {
-    render() {
+var MenuComponent = React.createClass({
+    mixins: [ backboneReact ],
+    render: function() {
         return (
             <div className="top-bar">
                 <div className="title-bar" data-responsive-toggle="realEstateMenu" data-hide-for="small">
@@ -13,14 +15,14 @@ class Menu extends React.Component {
                         <ul className="dropdown menu" data-dropdown-menu>
                             <li className="menu-text">NASA</li>
                             <li><a href="#">Home</a></li>
-                            <li><a href="#/neo">Near-earth objects</a></li>
-                            <li><a href="#/potd">Picture of the day</a></li>
+                            <li><a href="#/neo">Near-Earth Objects</a></li>
+                            <li><a href="#/apod">Picture of the day</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         );
     }
-}
+});
 
-export default Menu;
+export default MenuComponent;

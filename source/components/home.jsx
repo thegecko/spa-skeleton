@@ -1,9 +1,16 @@
 import React from 'react';
- 
-class Home extends React.Component {
-    render() {
-        return <h1>Welcome to NASA</h1>;
-    }
-}
+import backboneReact from 'backbone-react-component';
 
-export default Home;
+var HomeComponent = React.createClass({
+    mixins: [ backboneReact ],
+    render: function() {
+        return (
+            <div>
+                <h1>Welcome to NASA</h1>
+                <p>Try viewing some <a href="#/neo">near-earth objects</a> or checkout the <a href="#/apod">picture of the day</a>.</p>
+            </div>
+        );
+    }
+});
+
+export default HomeComponent

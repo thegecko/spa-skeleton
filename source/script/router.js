@@ -3,31 +3,44 @@ import React from 'react';
 import Backbone from 'backbone';
 import {render} from 'react-dom';
 
-import Home from '../components/home.jsx';
-import Neo from '../components/neo.jsx';
-import Picture from '../components/potd.jsx';
+import HomeComponent from '../components/home.jsx';
+import NeoComponent from '../components/neo.jsx';
+import ApodComponent from '../components/apod.jsx';
+
+import ApodModel from '../models/apod';
+import NeoCollection from '../collections/neo';
 
 var appElement = document.getElementById("app");
 
-var Router = Backbone.Router.extend({
-	routes: {
-		"(/)": "home",
-		"neo": "neo",
-		"potd": "potd",
-		"*action": "defaultRoute"
-	},
-	home: function() {
-		render(<Home/>, appElement);
-	},
-	neo: function() {
-		render(<Neo />, appElement);
-	},
-	potd: function() {
-		render(<Picture />, appElement);
-	},
-	defaultRoute: function(other) {
+class Router extends Backbone.Router {
+
+	get routes() {
+		return {
+			"(/)": "home",
+			"neo": "neo",
+			"apod": "apod",
+			"*action": "defaultRoute"
+		};
+	}
+
+	home() {
+		render(<HomeComponent />, appElement);
+	}
+
+	neo() {
+		render(<NeoComponent collection={NeoCollection} />, appElement);
+		NeoCollection.fetch();
+	}
+
+	apod() {
+		render(<ApodComponent model={ApodModel} />, appElement);
+		ApodModel.fetch();
+	}
+
+	defaultRoute(other) {
 		console.log('Invalid. You attempted to reach:' + other);
 	}
-});
+}
 
-export default Router;
+new Router();
+Backbone.history.start();

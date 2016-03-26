@@ -19,7 +19,7 @@ Single-Page Appication Skeleton
 
 * models + controllers: [backbone.js](http://backbonejs.org/)
 * views: [react](https://facebook.github.io/react/)
-* glue: [react-backbone](http://jhudson8.github.io/fancydocs/index.html#project/jhudson8/react-backbone)
+* glue: [backbone-react-component](http://magalhas.github.io/backbone-react-component/)
 * styling: [foundation-sites](http://foundation.zurb.com/) + [sass](http://sass-lang.com/)
 
 ### Testing
