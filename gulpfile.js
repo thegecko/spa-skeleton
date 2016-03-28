@@ -110,10 +110,7 @@ gulp.task("serve", ["test"], function(callback) {
 
     new WebpackServer(webpack(webpackConfig), {
         contentBase : outputDir,
-        publicPath: webpackConfig.output.publicPath,
-        stats: {
-            colors: true
-        }
+        publicPath: webpackConfig.output.publicPath
     })
     .listen(devPort, devServer, function(err) {
         gutil.log("[webpack-dev-server]", devURL);
