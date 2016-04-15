@@ -4,7 +4,7 @@
 [![Builds](https://img.shields.io/badge/SPA--Skeleton-builds-blue.svg)](http://thegecko.github.io/spa-skeleton/builds/)
 [![Staging](https://img.shields.io/badge/SPA--Skeleton-staging-blue.svg)](http://thegecko.github.io/spa-skeleton/)
 
-Single-Page Appication Skeleton
+Single-Page Application Skeleton
 
 ## Architecture
 
