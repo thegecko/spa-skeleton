@@ -1,5 +1,6 @@
 import React from 'react';
 import backboneReact from 'backbone-react-component';
+import { Link, IndexLink } from 'react-router';
 
 var MenuComponent = React.createClass({
     mixins: [ backboneReact ],
@@ -14,9 +15,9 @@ var MenuComponent = React.createClass({
                     <div className="top-bar-left">
                         <ul className="dropdown menu" data-dropdown-menu>
                             <li className="menu-text">NASA</li>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#/neo">Near-Earth Objects</a></li>
-                            <li><a href="#/apod">Picture of the day</a></li>
+                            <li><IndexLink to="/">Home</IndexLink></li>
+                            <li><Link to="/neo">Near-Earth Objects</Link></li>
+                            <li><Link to="/apod">Picture of the day</Link></li>
                         </ul>
                     </div>
                 </div>

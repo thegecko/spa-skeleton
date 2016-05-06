@@ -1,19 +1,22 @@
 import React from 'react';
-import {render} from 'react-dom';
 
-class BaseController {
-    get markup() { return <this.component />; }
-
-    constructor(element, component) {
-        if (typeof element === "string") {
-            element = document.getElementById(element);
-        }
-        this.element = element;
-        this.component = component;
-    }
+class BaseController extends React.Component {
+    get markup() { return <null />; }
+    get models() { return []; }
 
     render() {
-        render(this.markup, this.element);
+        return this.markup;
+    }
+
+    componentDidMount() {
+        var models = this.models;
+        if (!Array.isArray(models)) models = [models];
+
+        if (models.length) {
+            models.forEach(model => {
+                model.fetch();
+            });
+        }
     }
 }
 
