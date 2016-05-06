@@ -23,7 +23,7 @@ Single-Page Application Skeleton
 * routing: [react-router](https://github.com/reactjs/react-router)
 * glue: [backbone-react-component](http://magalhas.github.io/backbone-react-component/)
 
-## Styling
+### Styling
 
 * layout: [foundation-sites](http://foundation.zurb.com/)
 * css pre-processor: [sass](http://sass-lang.com/)
@@ -38,6 +38,11 @@ Single-Page Application Skeleton
 
 * continuous integration: [circleci](https://circleci.com/gh/thegecko/spa-skeleton)
 * staging server: [gh-pages](https://thegecko.github.io/spa-skeleton/)
+
+### Online Books
+
+* backbone: [backbone apps](https://addyosmani.com/backbone-fundamentals/)
+* webpack + react: [survivejs](http://survivejs.com/webpack_react/)
 
 ## Prerequisites
 
