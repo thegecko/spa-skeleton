@@ -1,12 +1,8 @@
 import 'script!jquery';
 import 'script!foundation-sites';
-
-import '../style/main.scss';
+import '../style/main';
 import './router';
 
-import MenuController from '../controllers/menu';
-new MenuController('menu').render();
-
 $(function() {
-	$(document).foundation();
+    $(document).foundation();
 });

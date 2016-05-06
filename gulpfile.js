@@ -27,9 +27,13 @@ var lintConfig = {
         browser: true,
     },
     rules: {
-        "no-console": 1,
-        "no-undef": 1,
-        "semi": 2
+        "semi": ["error"],
+        "indent": ["error", 4],
+        "linebreak-style": ["error", "unix"],
+        "no-irregular-whitespace": ["error"],
+        "no-undef": ["warn"],
+        "no-console": ["warn"],
+        "no-unused-vars": ["warn"]
     }
 };
 
@@ -42,12 +46,14 @@ var mochaConfig = {
 var webpackConfig = {
     cache: false,
     debug: false,
+    resolve: {
+        extensions: ["", ".js", ".jsx", ".css", ".scss"]
+    },
     entry: {
         main: ["./" + sourceDir + "/script/main.js"]
     },
     output: {
-        path: __dirname + outputDir + bundleDir,
-        publicPath: bundleDir,
+        path: __dirname + outputDir,
         filename: "[name].js",
     },
     module: {
@@ -67,11 +73,11 @@ var webpackConfig = {
                 loader: WebpackExtract.extract("style", "css!sass"),
                 include: __dirname + "/" + sourceDir
             },
-            { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
-            { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
-            { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
-            { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+            { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff&name=[name].[ext]" },
+            { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff&name=[name].[ext]" },
+            { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream&name=[name].[ext]" },
+            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml&name=[name].[ext]" },
+            { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=[name].[ext]" },
             { test: /\.(ico|jpe?g|png|gif)$/, loader: "file" }
         ]
     },
@@ -110,7 +116,7 @@ gulp.task("serve", ["test"], function(callback) {
 
     new WebpackServer(webpack(webpackConfig), {
         contentBase : outputDir,
-        publicPath: webpackConfig.output.publicPath
+        publicPath: bundleDir
     })
     .listen(devPort, devServer, function(err) {
         gutil.log("[webpack-dev-server]", devURL);
