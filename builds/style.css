@@ -33,6 +33,10 @@ ul, li {
 	font-size: 15px;
 }
 
+.build.run {
+	background-color: #fffbb3;
+}
+
 .build.pass {
 	background-color: #b3ffb3;
 }
@@ -51,7 +55,7 @@ ul, li {
 .links {
 	position: absolute;
 	bottom: 0;
-	left: 12px;
+	left: 2px;
 	padding: 10px;
 }
 

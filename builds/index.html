@@ -19,6 +19,7 @@
 </div>
 
 <script>
+	var org = "thegecko";
 	var project = "spa-skeleton";
 	var token = "";
 </script>
@@ -27,32 +28,33 @@
 
 	<% _.each(builds, function(build) { %>
 		<li class="item">
-			<% if (build.has_artifacts) { %>
-				<a title="Test results" href="https://circle-artifacts.com/gh/thegecko/<%- project %>/<%- build.build_num%>/artifacts/0/home/ubuntu/<%- project %>/results/index.html">
+			<% if (build.failed || !build.has_artifacts) { %>
+				<a title="CircleCI Build" href="<%- build.build_url %>">
+			<% } else { %>
+				<a title="Test results" href="https://circle-artifacts.com/gh/<%- org %>/<%- project %>/<%- build.build_num%>/artifacts/0/home/ubuntu/<%- project %>/results/index.html">
 			<% } %>
 
-			<div class="build <%- (build.failed || !build.has_artifacts) ? 'fail' : 'pass' %>">
-				<div class="number"><%- ("000" + build.build_num).slice(-3) %></div>
-				<div class="details">
-					<div class="title"><%- (build.branch === "master") ? status(build) : build.branch %></div>
-					<div class="details"><%- (build.branch === "master") ? build.subject : status(build) + ": " + build.subject %></div>
-				</div>
-				<div class="stats">
-					<div class="start"><%- formatDate(build.author_date) %></div>
-					<div class="duration"><%- (build.lifecycle === "running") ? "running" : "duration: " + Math.round(build.build_time_millis / 1000 / 60) + "mins" %></div>
-					<div class="name"><%- build.author_name %></div>
-				</div>
-			</div>
-
-			<% if (build.has_artifacts) { %>
-				</a>
-			<% } %>
+                <div class="build <%- build.status === 'running' ? 'run' : (build.failed || !build.has_artifacts) ? 'fail' : 'pass' %>">
+                    <div class="number"><%- ("000" + build.build_num).slice(-3) %></div>
+                    <div class="details">
+                        <div class="title"><%- (build.branch === "master") ? status(build) : build.branch %></div>
+                        <div class="details"><%- (build.branch === "master") ? build.subject : status(build) + ": " + build.subject %></div>
+                    </div>
+                    <div class="stats">
+                        <div class="start"><%- formatDate(build.author_date) %></div>
+                        <div class="duration"><%- (build.lifecycle === "running") ? "running" : "duration: " + Math.round(build.build_time_millis / 1000 / 60) + "mins" %></div>
+                        <div class="name"><%- build.author_name %></div>
+                    </div>
+                </div>
+            </a>
 
 			<div class="links">
-				<a title="CircleCI build" href="<%- build.build_url %>">
-					<img class="logo circleci" src="images/circleci.svg" /></a>
-				<a title="Github commit" href="<%- build.vcs_url %>/commit/<%- build.vcs_revision %>">
+				<a title="Github Commit" href="<%- build.vcs_url %>/commit/<%- build.vcs_revision %>">
 					<img class="logo github" src="images/github.svg" /></a>
+				<a title="CircleCI Build" href="<%- build.build_url %>">
+					<img class="logo circleci" src="images/circleci.svg" /></a>
+				<a title="Test Results" href="https://circle-artifacts.com/gh/<%- org %>/<%- project %>/<%- build.build_num%>/artifacts/0/home/ubuntu/<%- project %>/results/index.html">
+					<img class="logo tests" src="images/tests.svg" /></a>
 			</div>
 		</li>
     <% }); %>
@@ -70,7 +72,7 @@
 	var template = _.template($("#template").html());
 
 	function getCircle(callback) {
-		url = "https://circleci.com/api/v1/project/thegecko/" + project + "?circle-token=" + token;
+		url = "https://circleci.com/api/v1/project/" + org + "/" + project + "?circle-token=" + token;
 		$.get(url, callback)
 	}
 
@@ -82,7 +84,7 @@
         ]; 
         var day = [
 			("00" + date.getDate()).slice(-2),
-			("00" + date.getMonth() + 1).slice(-2),
+			("00" + (date.getMonth() + 1)).slice(-2),
 			("00" + date.getYear()).slice(-2),
         ]; 
 	    return time.join(":") + " " + day.join('/');
