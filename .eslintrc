@@ -1,0 +1,17 @@
+{
+    extends: [ "eslint:recommended", "plugin:react/recommended" ],
+    plugins: [ "react" ],
+    parser: "babel-eslint",
+    env: {
+        browser: true,
+    },
+    rules: {
+        "semi": ["error"],
+        "indent": ["error", 4],
+        "no-irregular-whitespace": ["error"],
+        "linebreak-style": ["warn", "unix"],
+        "no-undef": ["warn"],
+        "no-console": ["warn"],
+        "no-unused-vars": ["warn"]
+    }
+}
