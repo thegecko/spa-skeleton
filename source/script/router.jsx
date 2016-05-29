@@ -1,27 +1,38 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {createHashHistory} from 'history';
+import { render } from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { createHashHistory } from 'history';
 import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
-import MainController from '../controllers/main';
-import HomeController from '../controllers/home';
-import NeoController from '../controllers/neo';
-import ApodController from '../controllers/apod';
+import Main from '../layout/container';
+import Home from '../features/home/container';
+import Neo from '../features/neo/container';
+import Apod from '../features/apod/container';
 
+import appReducer from './reducers';
+
+const store = createStore(appReducer, initialState);
 const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
+const history = syncHistoryWithStore(appHistory, store);
+
 const NotFound = React.createClass({
     render() {
         return <h2>Not found</h2>;
     }
 });
 
-render((
-	<Router history={appHistory}>
-        <Route path="/" component={MainController}>
-            <IndexRoute component={HomeController} />
-            <Route path="neo" component={NeoController} />
-            <Route path="apod" component={ApodController} />
-            <Route path="*" component={NotFound} />
-        </Route>
-	</Router>
-), document.getElementById("main"));
+render(
+    <Provider store={store}>
+        <Router history={history}>
+            <Route path="/" component={Main}>
+                <IndexRoute component={Home} />
+                <Route path="neo" component={Neo} />
+                <Route path="apod" component={Apod} />
+                <Route path="*" component={NotFound} />
+            </Route>
+        </Router>
+    </Provider>,
+    document.getElementById("main")
+);
