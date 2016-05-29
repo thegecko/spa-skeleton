@@ -19,24 +19,6 @@ var jsFiles = [
     sourceDir + "/**/*.jsx"
 ];
 
-var lintConfig = {
-    plugins: [ "react" ],
-    extends: [ "eslint:recommended", "plugin:react/recommended" ],
-    parser: "babel-eslint",
-    env: {
-        browser: true,
-    },
-    rules: {
-        "semi": ["error"],
-        "indent": ["error", 4],
-        "linebreak-style": ["error", "unix"],
-        "no-irregular-whitespace": ["error"],
-        "no-undef": ["warn"],
-        "no-console": ["warn"],
-        "no-unused-vars": ["warn"]
-    }
-};
-
 var mochaConfig = {
     require: "babel-core/register",
     reporter: "mochawesome",
@@ -88,7 +70,7 @@ var webpackConfig = {
 
 gulp.task("lint", function() {
     return gulp.src(jsFiles)
-    .pipe(eslint(lintConfig))
+    .pipe(eslint(".eslintrc"))
     .pipe(eslint.format())
     .pipe(eslint.failOnError());
 });
