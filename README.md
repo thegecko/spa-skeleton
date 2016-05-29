@@ -15,13 +15,17 @@ Single-Page Application Skeleton
 * es2015 transpiler: [babel](http://babeljs.io/)
 * module loader: [webpack](https://webpack.github.io/)
 
-### MVC
+## Structure
 
-* models + ajax: [backbone.js](http://backbonejs.org/) + [jQuery](https://jquery.com/)
-* views: [react](https://facebook.github.io/react/)
-* controllers: [react controllers](http://blog.andrewray.me/the-reactjs-controller-view-pattern/)
-* routing: [react-router](https://github.com/reactjs/react-router)
-* glue: [backbone-react-component](http://magalhas.github.io/backbone-react-component/)
+* ajax: [jQuery](https://jquery.com/)
+* components: [react](https://facebook.github.io/react/)
+* state container: [redux](http://redux.js.org/)
+* redux glue: [react-redux](https://github.com/reactjs/react-redux/)
+
+## Routing
+
+* routing: [react-router](https://github.com/reactjs/react-router/)
+* redux glue: [react-router-redux](https://github.com/reactjs/react-router-redux/)
 
 ### Styling
 
