@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import neo from '../features/neo/reducer';
-import apod from '../features/apod/reducer';
+import { reducer as neo } from '../features/neo/api';
+import { reducer as apod } from '../features/apod/api';
 
 const appReducer = combineReducers({
     neo,
     apod,
-    routerReducer
+    routing: routerReducer
 });
 
 export default appReducer;
