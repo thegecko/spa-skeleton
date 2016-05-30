@@ -15,14 +15,14 @@ Single-Page Application Skeleton
 * es2015 transpiler: [babel](http://babeljs.io/)
 * module loader: [webpack](https://webpack.github.io/)
 
-## Structure
+### Structure
 
 * ajax: [jQuery](https://jquery.com/)
 * components: [react](https://facebook.github.io/react/)
 * state container: [redux](http://redux.js.org/)
 * redux glue: [react-redux](https://github.com/reactjs/react-redux/)
 
-## Routing
+### Routing
 
 * routing: [react-router](https://github.com/reactjs/react-router/)
 * redux glue: [react-router-redux](https://github.com/reactjs/react-router-redux/)
