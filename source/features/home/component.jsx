@@ -1,9 +1,7 @@
 import React from 'react';
-import backboneReact from 'backbone-react-component';
 import {Link} from 'react-router';
 
 var HomeComponent = React.createClass({
-    mixins: [ backboneReact ],
     render: function() {
         return (
             <div>

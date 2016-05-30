@@ -1,9 +1,7 @@
 import React from 'react';
-import backboneReact from 'backbone-react-component';
 import { Link, IndexLink } from 'react-router';
 
 var MenuComponent = React.createClass({
-    mixins: [ backboneReact ],
     render: function() {
         return (
             <div className="top-bar">

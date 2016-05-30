@@ -7,7 +7,7 @@
     },
     rules: {
         "semi": ["error"],
-        "indent": ["error", 4],
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "no-irregular-whitespace": ["error"],
         "linebreak-style": ["warn", "unix"],
         "no-undef": ["warn"],
