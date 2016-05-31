@@ -1,24 +1,18 @@
 import React from 'react';
-import thunk from 'redux-thunk';
 import { render } from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { createHashHistory } from 'history';
 import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-// All reducers
-import appReducer from './reducers';
+// Store
+import store from './store';
 
 // Containers
 import Main from '../layout/main';
 import Home from '../features/home/component';
 import Neo from '../features/neo/container';
 import Apod from '../features/apod/container';
-
-// Store
-const initialState = undefined;
-const store = createStore(appReducer, applyMiddleware(thunk), initialState);
 
 // History
 const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });

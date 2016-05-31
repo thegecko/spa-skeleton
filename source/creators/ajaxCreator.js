@@ -1,11 +1,9 @@
 import $ from 'jquery';
-import BaseCreator from './baseCreator';
 
-class AjaxCreator extends BaseCreator {
+class AjaxCreator {
 
     constructor(type, baseUrl) {
-        super(type);
-
+        this.type = type;
         this.baseUrl = baseUrl;
     }
 
