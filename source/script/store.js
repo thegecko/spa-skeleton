@@ -1,5 +1,4 @@
 import thunk from 'redux-thunk';
-import { render } from 'react-dom';
 import { routerReducer } from 'react-router-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 
